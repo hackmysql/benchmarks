@@ -1,0 +1,6 @@
+stage:
+  workload:
+    - trx: [simple-query.sql]
+      iter: 100
+  trx:
+    - file: simple-query.sql

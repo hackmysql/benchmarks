@@ -1,0 +1,32 @@
+stage:
+  params:
+    facts: 7,000,000
+    dims: 30,000
+  workload:
+    - trx: [tables.sql]
+      name: tables
+
+    - trx: [facts.sql]        # 
+      clients: $sys.CPU_CORES #
+      name: rows              # Run together (parallel insert)
+    - trx: [dims.sql]         #
+      name: rows              #
+  trx:
+    - file: tables.sql
+    - file: facts.sql
+      data:
+        i:
+          generator: int
+          params:
+            max: 1,000,000
+        val:
+          generator: int
+          params:
+            dist: uniform
+            max: $params.dims
+    - file: dims.sql
+      data:
+        pad:
+          generator: str-fill-az
+          params:
+            len: 40

@@ -1,0 +1,6 @@
+stage:
+  workload:
+    - trx: [deferred-join.sql]
+      iter: 100
+  trx:
+    - file: deferred-join.sql
